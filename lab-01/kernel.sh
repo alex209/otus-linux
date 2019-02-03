@@ -11,7 +11,7 @@ yum install openssl-devel perl bc elfutils-libelf-devel -y
 cd /usr/src/linux
 make olddefconfig
 make && make modules
-make modules_install && male install
+make modules_install && make install
 grub2-mkconfig /boot/grub2/grub.cfg
 grub2-set-default 0
 
