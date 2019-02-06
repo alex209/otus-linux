@@ -1,0 +1,258 @@
+Script started on Wed Feb  6 08:51:23 2019
+]0;root@otuslinux:/home/vagrant[?1034h[root@otuslinux vagrant]# cd /mda  nt/raid/
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# ll
+total 12
+drwx------. 2 root root 12288 Feb  6 08:42 [0m[38;5;27mlost+found[0m
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# df =h
+df: '=h': No such file or directory
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# df =h  -g h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        40G  4.4G   36G  11% /
+devtmpfs        488M     0  488M   0% /dev
+tmpfs           496M     0  496M   0% /dev/shm
+tmpfs           496M  6.7M  489M   2% /run
+tmpfs           496M     0  496M   0% /sys/fs/cgroup
+/dev/md0        473M  2.3M  442M   1% /mnt/raid
+tmpfs           100M     0  100M   0% /run/user/1000
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# dd in f=  /dev/urandom of=/mnt/raid/file bs=1m   M count =  =300
+300+0 records in
+300+0 records out
+314572800 bytes (315 MB) copied, 6.07324 s, 51.8 MB/s
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# cat /proc/mdstat 
+Personalities : [raid10] 
+md0 : active raid10 sde[3] sdd[2] sdc[1] sdb[0]
+      507904 blocks super 1.2 512K chunks 2 near-copies [4/4] [UUUU]
+      
+unused devices: <none>
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm -D /dev/md0 
+/dev/md0:
+           Version : 1.2
+     Creation Time : Wed Feb  6 08:42:41 2019
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Feb  6 08:53:29 2019
+             State : clean 
+    Active Devices : 4
+   Working Devices : 4
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : otuslinux:0  (local to host otuslinux)
+              UUID : 6a402ff9:74c1c851:c8e5115b:63236e53
+            Events : 19
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       2       8       48        2      active sync set-A   /dev/sdd
+       3       8       64        3      active sync set-B   /dev/sde
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm --detail --scan --verbose
+ARRAY /dev/md0 level=raid10 num-devices=4 metadata=1.2 name=otuslinux:0 UUID=6a402ff9:74c1c851:c8e5115b:63236e53
+   devices=/dev/sdb,/dev/sdc,/dev/sdd,/dev/sde
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm --detail --scan --verbose                               
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm /dev/md0 --fail /dev/d sdd
+mdadm: set /dev/sdd faulty in /dev/md0
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# cat /proc/mdstat 
+Personalities : [raid10] 
+md0 : active raid10 sde[3] sdd[2](F) sdc[1] sdb[0]
+      507904 blocks super 1.2 512K chunks 2 near-copies [4/3] [UU_U]
+      
+unused devices: <none>
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdada m -D /dev/md0 
+/dev/md0:
+           Version : 1.2
+     Creation Time : Wed Feb  6 08:42:41 2019
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Feb  6 08:55:07 2019
+             State : clean, degraded 
+    Active Devices : 3
+   Working Devices : 3
+    Failed Devices : 1
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : otuslinux:0  (local to host otuslinux)
+              UUID : 6a402ff9:74c1c851:c8e5115b:63236e53
+            Events : 21
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       -       0        0        2      removed
+       3       8       64        3      active sync set-B   /dev/sde
+
+       2       8       48        -      faulty   /dev/sdd
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm /dev/md0 --remove /dec v/sdd 
+mdadm: hot removed /dev/sdd from /dev/md0
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm /dev/md0 --remove /dev/sdd [15P-D /dev/md0 
+/dev/md0:
+           Version : 1.2
+     Creation Time : Wed Feb  6 08:42:41 2019
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 3
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Feb  6 08:56:20 2019
+             State : clean, degraded 
+    Active Devices : 3
+   Working Devices : 3
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : otuslinux:0  (local to host otuslinux)
+              UUID : 6a402ff9:74c1c851:c8e5115b:63236e53
+            Events : 22
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       -       0        0        2      removed
+       3       8       64        3      active sync set-B   /dev/sde
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm /dev/cd  sd  md0 --aa   -add /dev/sd
+sda   sda1  sdb   sdc   sdd   sde   sdf   sdg   
+[root@otuslinux raid]# mdadm /dev/md0 --add /dev/sdg
+mdadm: added /dev/sdg
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm /dev/md0 --add /dev/sdg[11P-D /dev/md0 
+/dev/md0:
+           Version : 1.2
+     Creation Time : Wed Feb  6 08:42:41 2019
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Feb  6 08:57:02 2019
+             State : clean, degraded, recovering 
+    Active Devices : 3
+   Working Devices : 4
+    Failed Devices : 0
+     Spare Devices : 1
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+    Rebuild Status : 22% complete
+
+              Name : otuslinux:0  (local to host otuslinux)
+              UUID : 6a402ff9:74c1c851:c8e5115b:63236e53
+            Events : 27
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       4       8       96        2      spare rebuilding   /dev/sdg
+       3       8       64        3      active sync set-B   /dev/sde
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# mdadm -D /dev/md0 /dev/md0 --add /dev/sdg[11P-D /dev/md0 
+/dev/md0:
+           Version : 1.2
+     Creation Time : Wed Feb  6 08:42:41 2019
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Feb  6 08:57:07 2019
+             State : clean, degraded, recovering 
+    Active Devices : 3
+   Working Devices : 4
+    Failed Devices : 0
+     Spare Devices : 1
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+    Rebuild Status : 84% complete
+
+              Name : otuslinux:0  (local to host otuslinux)
+              UUID : 6a402ff9:74c1c851:c8e5115b:63236e53
+            Events : 37
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       4       8       96        2      spare rebuilding   /dev/sdg
+       3       8       64        3      active sync set-B   /dev/sde
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# cat /proc/mdstat 
+Personalities : [raid10] 
+md0 : active raid10 sdg[4] sde[3] sdc[1] sdb[0]
+      507904 blocks super 1.2 512K chunks 2 near-copies [4/4] [UUUU]
+      
+unused devices: <none>
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# cat /proc/mdstat mdadm -D /dev/md0 [1Pcat /proc/mdstat 
+Personalities : [raid10] 
+md0 : active raid10 sdg[4] sde[3] sdc[1] sdb[0]
+      507904 blocks super 1.2 512K chunks 2 near-copies [4/4] [UUUU]
+      
+unused devices: <none>
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# cat /proc/mdstat mdadm -D /dev/md0 
+/dev/md0:
+           Version : 1.2
+     Creation Time : Wed Feb  6 08:42:41 2019
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Feb  6 08:57:07 2019
+             State : clean 
+    Active Devices : 4
+   Working Devices : 4
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : otuslinux:0  (local to host otuslinux)
+              UUID : 6a402ff9:74c1c851:c8e5115b:63236e53
+            Events : 41
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       4       8       96        2      active sync set-A   /dev/sdg
+       3       8       64        3      active sync set-B   /dev/sde
+]0;root@otuslinux:/mnt/raid[root@otuslinux raid]# exit
+exit
+
+Script done on Wed Feb  6 08:57:50 2019
