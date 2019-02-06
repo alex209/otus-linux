@@ -1,0 +1,745 @@
+Script started on Wed Feb  6 14:40:02 2019
+]0;root@otuslinux:/home/vagrant[?1034h[root@otuslinux vagrant]# 
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# pa  lsns    blk 
+NAME      MAJ:MIN RM  SIZE RO TYPE   MOUNTPOINT
+sda         8:0    0   40G  0 disk   
+`-sda1      8:1    0   40G  0 part   /
+sdb         8:16   0  250M  0 disk   
+`-md0       9:0    0  496M  0 raid10 
+  |-md0p1 259:5    0   98M  0 md     /mnt/raid/part1
+  |-md0p2 259:6    0   99M  0 md     /mnt/raid/part2
+  |-md0p3 259:7    0  100M  0 md     /mnt/raid/part3
+  |-md0p4 259:8    0   99M  0 md     /mnt/raid/part4
+  `-md0p5 259:9    0   98M  0 md     /mnt/raid/part5
+sdc         8:32   0  250M  0 disk   
+`-md0       9:0    0  496M  0 raid10 
+  |-md0p1 259:5    0   98M  0 md     /mnt/raid/part1
+  |-md0p2 259:6    0   99M  0 md     /mnt/raid/part2
+  |-md0p3 259:7    0  100M  0 md     /mnt/raid/part3
+  |-md0p4 259:8    0   99M  0 md     /mnt/raid/part4
+  `-md0p5 259:9    0   98M  0 md     /mnt/raid/part5
+sdd         8:48   0  250M  0 disk   
+sde         8:64   0  250M  0 disk   
+`-md0       9:0    0  496M  0 raid10 
+  |-md0p1 259:5    0   98M  0 md     /mnt/raid/part1
+  |-md0p2 259:6    0   99M  0 md     /mnt/raid/part2
+  |-md0p3 259:7    0  100M  0 md     /mnt/raid/part3
+  |-md0p4 259:8    0   99M  0 md     /mnt/raid/part4
+  `-md0p5 259:9    0   98M  0 md     /mnt/raid/part5
+sdf         8:80   0  250M  0 disk   
+sdg         8:96   0  250M  0 disk   
+`-md0       9:0    0  496M  0 raid10 
+  |-md0p1 259:5    0   98M  0 md     /mnt/raid/part1
+  |-md0p2 259:6    0   99M  0 md     /mnt/raid/part2
+  |-md0p3 259:7    0  100M  0 md     /mnt/raid/part3
+  |-md0p4 259:8    0   99M  0 md     /mnt/raid/part4
+  `-md0p5 259:9    0   98M  0 md     /mnt/raid/part5
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# parted 
+[?1034hGNU Parted 3.1
+Using /dev/sda
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+                                                                          (parted) help
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) select /dev/md0
+Using /dev/md0
+                                                                          (parted) mkra  table gpt
+Warning: Partition(s) on /dev/md0 are being used.
+                                                                                                                                                    Ignore/Cancel? y
+parted: invalid token: y
+                                                                          Ignore/Cancel? q
+parted: invalid token: q
+                                                                          Ignore/Cancel? c
+                                                                          (parted) exit
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) quit
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# mount -l
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime,seclabel)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+devtmpfs on /dev type devtmpfs (rw,nosuid,seclabel,size=499468k,nr_inodes=124867,mode=755)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,seclabel)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,seclabel,mode=755)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,seclabel,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuset)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,net_prio,net_cls)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,freezer)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,hugetlb)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,memory)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuacct,cpu)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,pids)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,devices)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,blkio)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,perf_event)
+configfs on /sys/kernel/config type configfs (rw,relatime)
+/dev/sda1 on / type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+mqueue on /dev/mqueue type mqueue (rw,relatime,seclabel)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=30,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=15240)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)
+/dev/md0p1 on /mnt/raid/part1 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+/dev/md0p2 on /mnt/raid/part2 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+/dev/md0p3 on /mnt/raid/part3 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+/dev/md0p4 on /mnt/raid/part4 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+/dev/md0p5 on /mnt/raid/part5 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=101500k,mode=700,uid=1000,gid=1000)
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# umount /dev/md0p[]]  {}1},}2},}3},}4},}5}}
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# umount /dev/md0p{1,2,3,4,5}mount -l[K
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime,seclabel)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+devtmpfs on /dev type devtmpfs (rw,nosuid,seclabel,size=499468k,nr_inodes=124867,mode=755)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,seclabel)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,seclabel,mode=755)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,seclabel,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuset)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,net_prio,net_cls)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,freezer)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,hugetlb)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,memory)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuacct,cpu)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,pids)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,devices)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,blkio)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,perf_event)
+configfs on /sys/kernel/config type configfs (rw,relatime)
+/dev/sda1 on / type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+mqueue on /dev/mqueue type mqueue (rw,relatime,seclabel)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=30,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=15240)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=101500k,mode=700,uid=1000,gid=1000)
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# mount -lumount /dev/md0p{1,2,3,4,5}mount -l[K[1Pparted 
+[?1034hGNU Parted 3.1
+Using /dev/sda
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+                                                                          (parted) slect       hek lp
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) seleck t /dev/mdo 0
+Using /dev/md0
+                                                                          (parted) mktable gpt
+Warning: The existing disk label on /dev/md0 will be destroyed and all data on this disk will be lost. Do you want to continue?
+                                                                                                                                                    Yes/No? yes
+                                                                          (parted) print list 
+Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sda: 42.9GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  42.9GB  42.9GB  primary  xfs          boot
+
+
+Error: /dev/sdb: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdb: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/sdc: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdc: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/sdd: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdd: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/sde: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sde: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/sdf: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdf: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Model: Linux Software RAID Array (md)
+Disk /dev/md0: 520MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start  End  Size  File system  Name  Flags
+
+
+Error: /dev/sdg: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdg: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+                                                                          (parted) print list /dev/ms do 0
+Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sda: 42.9GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  42.9GB  42.9GB  primary  xfs          boot
+
+
+Error: /dev/sdb: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdb: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/sdc: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdc: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/sdd: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdd: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/sde: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sde: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/sdf: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdf: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Model: Linux Software RAID Array (md)
+Disk /dev/md0: 520MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start  End  Size  File system  Name  Flags
+
+
+Error: /dev/sdg: unrecognised disk label
+                                                                          Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdg: 262MB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) print list /dev/md0                   mkpart 
+align-check  disk_toggle  mklabel      mktable      print        rescue       resizepart   select       toggle       version      
+disk_set     help         mkpart       name         quit         resize       rm           set          unit         
+(parted) mkpart 
+                                                                          Partition name?  []? part1
+                                                                          File system type?  [ext2]? ext4
+                                                                          Start? 0%
+                                                                          End? 20%
+                                                                          (parted) 20%[1P0%[1@20%   mk part [1Ppart primary ext4 20% 40 %   % 0%
+                                                                          (parted) mkpart primary ext4 20% 40%[1P[1P[1@4[1@0% 40%[1P[1@60%
+                                                                          (parted) mkpart primary ext4 40% 60%[1P[1@60% 6[1P[1@8
+                                                                          (parted) mkpart primary ext4 60% 80%[1P[1@80% 8[1P[1@100%
+                                                                          (parted) help print lost
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+
+	Without arguments, 'print' displays the entire partition table. However with the following arguments it performs various other actions.
+          devices   : display all active block devices
+          free      : display information about free unpartitioned space on the current block device
+          list, all : display the partition tables of all active block devices
+          NUMBER    : display more detailed information about this particular partition
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) help print lost    devices
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+
+	Without arguments, 'print' displays the entire partition table. However with the following arguments it performs various other actions.
+          devices   : display all active block devices
+          free      : display information about free unpartitioned space on the current block device
+          list, all : display the partition tables of all active block devices
+          NUMBER    : display more detailed information about this particular partition
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) help print devices       /dev/md0
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+
+	Without arguments, 'print' displays the entire partition table. However with the following arguments it performs various other actions.
+          devices   : display all active block devices
+          free      : display information about free unpartitioned space on the current block device
+          list, all : display the partition tables of all active block devices
+          NUMBER    : display more detailed information about this particular partition
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) help print /dev/md0[1Pdevices /dev/md0
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+
+	Without arguments, 'print' displays the entire partition table. However with the following arguments it performs various other actions.
+          devices   : display all active block devices
+          free      : display information about free unpartitioned space on the current block device
+          list, all : display the partition tables of all active block devices
+          NUMBER    : display more detailed information about this particular partition
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) help print devices /dev/md0[8P/dev/md0[1Pdevices
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+
+	Without arguments, 'print' displays the entire partition table. However with the following arguments it performs various other actions.
+          devices   : display all active block devices
+          free      : display information about free unpartitioned space on the current block device
+          list, all : display the partition tables of all active block devices
+          NUMBER    : display more detailed information about this particular partition
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) print
+Model: Linux Software RAID Array (md)
+Disk /dev/md0: 520MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start   End    Size   File system  Name     Flags
+ 1      1049kB  104MB  103MB  ext4         part1
+ 2      104MB   208MB  104MB  ext4         primary
+ 3      208MB   312MB  105MB  ext4         primary
+ 4      312MB   416MB  104MB  ext4         primary
+ 5      416MB   519MB  103MB  ext4         primary
+
+                                                                          (parted) exi   qiut
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START and END
+  
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  unit UNIT                                set the default unit to UNIT
+  version                                  display the version number and copyright information of GNU Parted
+                                                                          (parted) 
+                                                                          (parted) 
+                                                                          (parted) quit
+Information: You may need to update /etc/fstab.
+
+                                                                          ]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# f lsblk 
+NAME      MAJ:MIN RM  SIZE RO TYPE   MOUNTPOINT
+sda         8:0    0   40G  0 disk   
+`-sda1      8:1    0   40G  0 part   /
+sdb         8:16   0  250M  0 disk   
+`-md0       9:0    0  496M  0 raid10 
+  |-md0p1 259:5    0   98M  0 md     
+  |-md0p2 259:6    0   99M  0 md     
+  |-md0p3 259:7    0  100M  0 md     
+  |-md0p4 259:8    0   99M  0 md     
+  `-md0p5 259:9    0   98M  0 md     
+sdc         8:32   0  250M  0 disk   
+`-md0       9:0    0  496M  0 raid10 
+  |-md0p1 259:5    0   98M  0 md     
+  |-md0p2 259:6    0   99M  0 md     
+  |-md0p3 259:7    0  100M  0 md     
+  |-md0p4 259:8    0   99M  0 md     
+  `-md0p5 259:9    0   98M  0 md     
+sdd         8:48   0  250M  0 disk   
+sde         8:64   0  250M  0 disk   
+`-md0       9:0    0  496M  0 raid10 
+  |-md0p1 259:5    0   98M  0 md     
+  |-md0p2 259:6    0   99M  0 md     
+  |-md0p3 259:7    0  100M  0 md     
+  |-md0p4 259:8    0   99M  0 md     
+  `-md0p5 259:9    0   98M  0 md     
+sdf         8:80   0  250M  0 disk   
+sdg         8:96   0  250M  0 disk   
+`-md0       9:0    0  496M  0 raid10 
+  |-md0p1 259:5    0   98M  0 md     
+  |-md0p2 259:6    0   99M  0 md     
+  |-md0p3 259:7    0  100M  0 md     
+  |-md0p4 259:8    0   99M  0 md     
+  `-md0p5 259:9    0   98M  0 md     
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]#  fo     for i in $(seq 1 5); do mkfs.ext4 /dev/mdp$i; done
+mke2fs 1.42.9 (28-Dec-2013)
+Could not stat /dev/mdp1 --- No such file or directory
+
+The device apparently does not exist; did you specify it correctly?
+mke2fs 1.42.9 (28-Dec-2013)
+Could not stat /dev/mdp2 --- No such file or directory
+
+The device apparently does not exist; did you specify it correctly?
+mke2fs 1.42.9 (28-Dec-2013)
+Could not stat /dev/mdp3 --- No such file or directory
+
+The device apparently does not exist; did you specify it correctly?
+mke2fs 1.42.9 (28-Dec-2013)
+Could not stat /dev/mdp4 --- No such file or directory
+
+The device apparently does not exist; did you specify it correctly?
+mke2fs 1.42.9 (28-Dec-2013)
+Could not stat /dev/mdp5 --- No such file or directory
+
+The device apparently does not exist; did you specify it correctly?
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# for i in $(seq 1 5); do mkfs.ext4 /dev/mdp$i; done[1@0p$i; done
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+Stride=512 blocks, Stripe width=1024 blocks
+25168 inodes, 100352 blocks
+5017 blocks (5.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=33685504
+13 block groups
+8192 blocks per group, 8192 fragments per group
+1936 inodes per group
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+
+Allocating group tables:  0/13     done                            
+Writing inode tables:  0/13     done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information:  0/13     done
+
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+Stride=512 blocks, Stripe width=1024 blocks
+25376 inodes, 101376 blocks
+5068 blocks (5.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=33685504
+13 block groups
+8192 blocks per group, 8192 fragments per group
+1952 inodes per group
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+
+Allocating group tables:  0/13     done                            
+Writing inode tables:  0/13     done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information:  0/13     done
+
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+Stride=512 blocks, Stripe width=1024 blocks
+25688 inodes, 102400 blocks
+5120 blocks (5.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=33685504
+13 block groups
+8192 blocks per group, 8192 fragments per group
+1976 inodes per group
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+
+Allocating group tables:  0/13     done                            
+Writing inode tables:  0/13     done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information:  0/13     done
+
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+Stride=512 blocks, Stripe width=1024 blocks
+25376 inodes, 101376 blocks
+5068 blocks (5.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=33685504
+13 block groups
+8192 blocks per group, 8192 fragments per group
+1952 inodes per group
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+
+Allocating group tables:  0/13     done                            
+Writing inode tables:  0/13     done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information:  0/13     done
+
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+Stride=512 blocks, Stripe width=1024 blocks
+25168 inodes, 100352 blocks
+5017 blocks (5.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=33685504
+13 block groups
+8192 blocks per group, 8192 fragments per group
+1936 inodes per group
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+
+Allocating group tables:  0/13     done                            
+Writing inode tables:  0/13     done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information:  0/13     done
+
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# ll /mnt/raid/part
+part1/ part2/ part3/ part4/ part5/ 
+[root@otuslinux vagrant]# ll /mnt/raid/part     
+total 0
+drwxr-xr-x. 2 root root 6 Feb  6 09:37 [0m[38;5;27mpart1[0m
+drwxr-xr-x. 2 root root 6 Feb  6 09:37 [38;5;27mpart2[0m
+drwxr-xr-x. 2 root root 6 Feb  6 09:37 [38;5;27mpart3[0m
+drwxr-xr-x. 2 root root 6 Feb  6 09:37 [38;5;27mpart4[0m
+drwxr-xr-x. 2 root root 6 Feb  6 09:37 [38;5;27mpart5[0m
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# for i in $(seq) 1  1 5); do mount /dev/md0p$i /mnt/raid/part$1 i; done
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        40G  4.4G   36G  11% /
+devtmpfs        488M     0  488M   0% /dev
+tmpfs           496M     0  496M   0% /dev/shm
+tmpfs           496M  6.7M  489M   2% /run
+tmpfs           496M     0  496M   0% /sys/fs/cgroup
+tmpfs           100M     0  100M   0% /run/user/1000
+/dev/md0p1       91M  1.6M   83M   2% /mnt/raid/part1
+/dev/md0p2       92M  1.6M   84M   2% /mnt/raid/part2
+/dev/md0p3       93M  1.6M   85M   2% /mnt/raid/part3
+/dev/md0p4       92M  1.6M   84M   2% /mnt/raid/part4
+/dev/md0p5       91M  1.6M   83M   2% /mnt/raid/part5
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# mount -l
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime,seclabel)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+devtmpfs on /dev type devtmpfs (rw,nosuid,seclabel,size=499468k,nr_inodes=124867,mode=755)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,seclabel)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,seclabel,mode=755)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,seclabel,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuset)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,net_prio,net_cls)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,freezer)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,hugetlb)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,memory)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuacct,cpu)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,pids)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,devices)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,blkio)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,perf_event)
+configfs on /sys/kernel/config type configfs (rw,relatime)
+/dev/sda1 on / type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+mqueue on /dev/mqueue type mqueue (rw,relatime,seclabel)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=30,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=15240)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=101500k,mode=700,uid=1000,gid=1000)
+/dev/md0p1 on /mnt/raid/part1 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+/dev/md0p2 on /mnt/raid/part2 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+/dev/md0p3 on /mnt/raid/part3 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+/dev/md0p4 on /mnt/raid/part4 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+/dev/md0p5 on /mnt/raid/part5 type ext4 (rw,relatime,seclabel,stripe=1024,data=ordered)
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# exit
+exit
+
+Script done on Wed Feb  6 14:53:35 2019
