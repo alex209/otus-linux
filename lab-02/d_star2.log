@@ -1,0 +1,132 @@
+Script started on Wed Feb  6 17:51:42 2019
+]0;root@otuslinux:/home/vagrant[?1034h[root@otuslinux vagrant]# fdisk sda   /dev/sda 
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): p
+
+Disk /dev/sda: 42.9 GB, 42949672960 bytes, 83886080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0009cf06
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048    83886079    41942016   83  Linux
+
+Command (m for help): t
+Selected partition 1
+Hex code (type L to list all codes): fd
+Changed type of partition 'Linux' to 'Linux raid autodetect'
+
+Command (m for help): p
+
+Disk /dev/sda: 42.9 GB, 42949672960 bytes, 83886080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0009cf06
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048    83886079    41942016   fd  Linux raid autodetect
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# mdadm --add /dev/sda1 /dev/md0               md0 /dev/sda1 
+mdadm: added /dev/sda1
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# watch -n 1 cat /proc/mdstat
+[?1049h[1;82r(B[m[4l[?7h[H[2JEvery 1.0s: cat /proc/mdstat[1;104HWed Feb  6 17:55:06 2019[3;1HPersonalities : [raid1][4dmd0 : active raid1 sda1[2] sdb1[1][5;7H41908224 blocks super 1.2 [2/1] [_U][6;7H[==>..................]  recovery = 10.7% (4513280/41908224) finish=1.2min speed=501475K/sec[8dunused devices: <none>[82;127H[1;122H7[6;53H5072[6;77H3[6;88H451507[82;127H[1;122H8[6;44H1.8% (4977280[6;90H2480[82;127H[1;122H9[6;44H3.0% (54508[6;90H424[82;127H[1;121H10[6;44H4.1% (592832[6;90H6024[82;127H[1;122H1[6;10H=>[6;44H5.2% (6411776[6;77H2[6;90H798[82;127H[1;122H2[6;44H6.4% (6891008[6;90H9400[82;127H[1;122H4[6;44H7.5% (7369600[6;89H606[82;127H[1;122H5[6;44H8.7% (7848192[6;90H1658[82;127H[1;122H6[6;44H9.8% (8324096[6;90H2449[82;127H[1;122H7[6;11H=>[6;43H21.0% (880281[6;77H1[6;90H3306[82;127H[1;122H8[6;44H2.1% (9280512[6;90H4025[82;127H[1;122H9[6;44H3.2% (9758336[6;91H682[82;127H[1;121H20[6;44H4.4% (10236544/41908224) finish=1.1min speed=465297K/sec[82;127H[82;1H[?1049l[?1l>]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# watch -n 1 cat /proc/mdstat[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P
+Personalities : [raid1] 
+md0 : active raid1 sda1[2] sdb1[1]
+      41908224 blocks super 1.2 [2/1] [_U]
+      [======>..............]  recovery = 30.8% (12921984/41908224) finish=1.0min speed=461499K/sec
+      
+unused devices: <none>
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sda1[2] sdb1[1]
+      41908224 blocks super 1.2 [2/1] [_U]
+      [=======>.............]  recovery = 35.2% (14761856/41908224) finish=1.0min speed=445230K/sec
+      
+unused devices: <none>
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sda1[2] sdb1[1]
+      41908224 blocks super 1.2 [2/1] [_U]
+      [=============>.......]  recovery = 69.2% (29008384/41908224) finish=0.4min speed=464664K/sec
+      
+unused devices: <none>
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sda1[2] sdb1[1]
+      41908224 blocks super 1.2 [2/1] [_U]
+      [================>....]  recovery = 80.6% (33791872/41908224) finish=0.2min speed=465336K/sec
+      
+unused devices: <none>
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sda1[2] sdb1[1]
+      41908224 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sda1[2] sdb1[1]
+      41908224 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# lsblk 
+NAME    MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+sda       8:0    0   40G  0 disk  
+`-sda1    8:1    0   40G  0 part  
+  `-md0   9:0    0   40G  0 raid1 /
+sdb       8:16   0   40G  0 disk  
+`-sdb1    8:17   0   40G  0 part  
+  `-md0   9:0    0   40G  0 raid1 /
+sdc       8:32   0  250M  0 disk  
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# mdadm -D /dev/md0 
+/dev/md0:
+           Version : 1.2
+     Creation Time : Wed Feb  6 16:50:45 2019
+        Raid Level : raid1
+        Array Size : 41908224 (39.97 GiB 42.91 GB)
+     Used Dev Size : 41908224 (39.97 GiB 42.91 GB)
+      Raid Devices : 2
+     Total Devices : 2
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Feb  6 17:57:11 2019
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+
+Consistency Policy : resync
+
+              Name : otuslinux:0  (local to host otuslinux)
+              UUID : 32929ca8:0e95c1f4:d58daf81:ee55c371
+            Events : 271
+
+    Number   Major   Minor   RaidDevice State
+       2       8        1        0      active sync   /dev/sda1
+       1       8       17        1      active sync   /dev/sdb1
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# grobin==       rub2-install /dev/sda
+Installing for i386-pc platform.
+Installation finished. No error reported.
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# grub2-install /dev/sda[4Pmdadm -D /dev/md0 [12Plsblk cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sda1[2] sdb1[1]
+      41908224 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# cat /proc/mdstat[Knano /etc/default/grub 
+[?1049h[1;82r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.3.1                           File: /etc/default/grub                                                             [3;1H(B[mGRUB_TIMEOUT=5[4dGRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"[5dGRUB_DEFAULT=saved[6dGRUB_DISABLE_SUBMENU=true[7dGRUB_TERMINAL_OUTPUT="console"[8dGRUB_CMDLINE_LINUX="rd.auto=1 rd.md.uuid=32929ca8:0e95c1f4:d58daf81:ee55c371 no_timer_check console=tty0 console=ttyS0,115200n$[9;1HGRUB_DISABLE_RECOVERY="true"[80;56H(B[0;7m[ Read 7 lines ][81d^G(B[m Get Help[81;22H(B[0;7m^O(B[m WriteOut[81;43H(B[0;7m^R(B[m Read File[81;64H(B[0;7m^Y(B[m Prev Page[81;85H(B[0;7m^K(B[m Cut Text[81;106H(B[0;7m^C(B[m Cur Pos[82d(B[0;7m^X(B[m Exit[82;22H(B[0;7m^J(B[m Justify[82;43H(B[0;7m^W(B[m Where Is[82;64H(B[0;7m^V(B[m Next Page[82;85H(B[0;7m^U(B[m UnCut Text[82;106H(B[0;7m^T(B[m To Spell[3d[4d[5d[6d[7d[8dGRUB_CM	LINE_LI	UX="[80d[K[8;22Hd.	uto=1 [1;118H(B[0;7mModified[8;30H(B[mrd.md.uuid=32929ca8:0e95c1f4:d58daf81:ee55c371 no_timer_check console=tty0 console=ttyS0,115200n8[8;30Hrd.md.uuid=32929ca8:0e95c1f4:d58daf81:ee55c371 no_timer_check console=tty0 console=ttyS0,115200n8 [8;29Hrd.md.uuid=32929ca8:0e95c1f4:d58daf81:ee55c371 no_timer_check console=tty0 console=ttyS0,115200n8 n[8;28Hrd.md.uuid=32929ca8:0e95c1f4:d58daf81:ee55c371 no_timer_check console=tty0 console=ttyS0,115200n8 ne[8;27Hrd.md.uuid=32929ca8:0e95c1f4:d58daf81:ee55c371 no_timer_check console=tty0 console=ttyS0,115200n8 net[8;26H[Zrd.md.uuid=32929ca8:0e95c1f4:d58daf81:ee55c371 no_timer_check console=tty0 console=ttyS0
