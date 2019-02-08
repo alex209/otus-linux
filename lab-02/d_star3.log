@@ -1,0 +1,79 @@
+Script started on Wed Feb  6 18:02:06 2019
+]0;root@otuslinux:/home/vagrant[?1034h[root@otuslinux vagrant]# 
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# lsblk 
+NAME    MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+sda       8:0    0   40G  0 disk  
+`-sda1    8:1    0   40G  0 part  
+  `-md0   9:0    0   40G  0 raid1 /
+sdb       8:16   0   40G  0 disk  
+`-sdb1    8:17   0   40G  0 part  
+  `-md0   9:0    0   40G  0 raid1 /
+sdc       8:32   0  250M  0 disk  
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# cat/p   /r proc/mdstat 
+Personalities : [raid1] 
+md0 : active raid1 sda1[2] sdb1[1]
+      41908224 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# mdad  m -D /dev/md0 
+/dev/md0:
+           Version : 1.2
+     Creation Time : Wed Feb  6 16:50:45 2019
+        Raid Level : raid1
+        Array Size : 41908224 (39.97 GiB 42.91 GB)
+     Used Dev Size : 41908224 (39.97 GiB 42.91 GB)
+      Raid Devices : 2
+     Total Devices : 2
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Feb  6 18:04:41 2019
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+
+Consistency Policy : resync
+
+              Name : otuslinux:0  (local to host otuslinux)
+              UUID : 32929ca8:0e95c1f4:d58daf81:ee55c371
+            Events : 273
+
+    Number   Major   Minor   RaidDevice State
+       2       8        1        0      active sync   /dev/sda1
+       1       8       17        1      active sync   /dev/sdb1
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# mount -l
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime,seclabel)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+devtmpfs on /dev type devtmpfs (rw,nosuid,seclabel,size=499776k,nr_inodes=124944,mode=755)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,seclabel)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,seclabel,mode=755)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,seclabel,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,freezer)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,devices)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuset)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuacct,cpu)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,hugetlb)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,net_prio,net_cls)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,memory)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,pids)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,perf_event)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,blkio)
+configfs on /sys/kernel/config type configfs (rw,relatime)
+/dev/md0 on / type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=31,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=15296)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel)
+mqueue on /dev/mqueue type mqueue (rw,relatime,seclabel)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=101500k,mode=700,uid=1000,gid=1000)
+tmpfs on /run/user/0 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=101500k,mode=700)
+]0;root@otuslinux:/home/vagrant[root@otuslinux vagrant]# n exit
+exit
+
+Script done on Wed Feb  6 18:06:00 2019
